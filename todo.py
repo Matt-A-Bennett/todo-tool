@@ -5,7 +5,11 @@ from os.path import isfile, isdir, join, dirname, abspath
 import argparse
 from datetime import datetime
 
-parser = argparse.ArgumentParser(description='todo list')
+parser = argparse.ArgumentParser(description='''Collects various todo list
+                                 items scattered around around different
+                                 directories and files  into a single master
+                                 todo list.''')
+
 parser.add_argument('-t', metavar='int', dest='complete', type=int, nargs='+', help='which items to tick')
 parser.add_argument('-u', metavar='int', dest='incomplete', type=int, nargs='+', help='which items to untick')
 parser.add_argument('-d', metavar='int', dest='delete', type=int, nargs='+', help='which items to delete')
