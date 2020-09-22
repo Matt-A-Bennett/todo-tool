@@ -126,4 +126,6 @@ the list according to its deadline.
 - On first time running, with empty todo_master.md and todo_removed.md, the
   master list has many entries of the same item (running it again resolves
   this issue). 
+- When trying to synch original files with master.md, the whole line in
+  original is replaced with the wrong task!
 
