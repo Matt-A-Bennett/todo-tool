@@ -79,9 +79,11 @@ with open(f'{path}todo_dirs.txt') as todo_dirs:
                             # synch original with master
                             with open(f'{document}', 'r') as doc:
                                 data = doc.readlines()
-                                data[int(query_inst.split(':',1)[0])-1] = task+'\n'
-                            with open(f'{document}', 'w') as doc:
-                                doc.writelines(data)
+
+                                # this is overwriting my tasks....
+                                # data[int(query_inst.split(':',1)[0])-1] = task+'\n'
+                            # with open(f'{document}', 'w') as doc:
+                                # doc.writelines(data)
                         break
 
                 query = [query_inst.split(':',1)[-1] for query_inst in query]
