@@ -164,7 +164,7 @@ user@host:~$ cd ~/Documents/my_work_repository/.todo_files
 user@host:~$ touch dirs_to_search.txt
 ```
 
-Lastly, in your .bashrc, set the TODO_PATH to point to this newly create
+Lastly, in your .bashrc, set the TODO_PATH to point to this newly created
 directory. In my case that would be:
 
 ```bash
