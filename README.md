@@ -20,7 +20,7 @@ user@host:~$ todo
 6 - [ ] Book holiday flights (deadline: 04-07-20)
 ``` 
 
-# Table of contents
+## Table of contents
 * [Getting Started](#getting-started)
 * [Usage](#usage)
 * [Maintaining todo list across multiple devices](#maintaining-todo-list-across-multiple-devices)
