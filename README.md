@@ -9,15 +9,6 @@ reappear later (the original files are not changed in this case). The items in
 the master todo list are ordered according to their associated deadlines.
 Keeping track of your todo list from the command line is then as simple as:
 
-# Table of contents
-[Getting Started](#getting-started)
-
-[Usage](#usage)
-
-[Maintaining todo list across multiple devices](#maintaining-todo-list-across-multiple-devices)
-
-[Features to be added](#features-to-be-added)
-
 ```console
 user@host:~$ todo 
 
@@ -28,6 +19,18 @@ user@host:~$ todo
 5 - [x] Upload latest version (deadline: 27-01-20) 
 6 - [ ] Book holiday flights (deadline: 04-07-20)
 ``` 
+
+# Table of contents
+``` 
+[Getting Started](#getting-started)
+
+[Usage](#usage)
+
+[Maintaining todo list across multiple devices](#maintaining-todo-list-across-multiple-devices)
+
+[Features to be added](#features-to-be-added)
+``` 
+
 ## Getting Started
 
 Clone the repo like so:
