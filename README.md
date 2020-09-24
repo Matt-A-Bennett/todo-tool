@@ -11,8 +11,11 @@ Keeping track of your todo list from the command line is then as simple as:
 
 # Table of contents
 [Getting Started](#getting-started)
+
 [Usage](#usage)
+
 [Maintaining todo list across multiple devices](#maintaining-todo-list-across-multiple-devices)
+
 [Features to be added](#features-to-be-added)
 
 ```console
