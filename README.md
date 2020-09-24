@@ -1,6 +1,6 @@
 # Todo List
 This is a bash script that collects my various todo list items scattered
-around my system in different directories and files (from meetings, talks,
+around my system in different files and directories (from meetings, talks,
 various projects etc.) into a single master todo list. I can consult and tick
 off completed items in the master todo list and these updates will also be
 propagated back to the individual todo list items in the files from where they
@@ -8,6 +8,12 @@ came. I can also remove items from the master todo list and they will not
 reappear later (the original files are not changed in this case). The items in
 the master todo list are ordered according to their associated deadlines.
 Keeping track of your todo list from the command line is then as simple as:
+
+# Table of contents
+[Getting Started](#Getting Started)
+[Usage](#Usage)
+[Maintaining todo list across multiple devices](#Maintaining todo list across multiple devices)
+[Features to be added](#Features to be added)
 
 ```console
 user@host:~$ todo 
@@ -20,6 +26,7 @@ user@host:~$ todo
 6 - [ ] Book holiday flights (deadline: 04-07-20)
 ``` 
 ## Getting Started
+
 Clone the repo like so:
 ```bash
 git clone https://github.com/Matt-A-Bennett/todo.git
@@ -28,7 +35,7 @@ git clone https://github.com/Matt-A-Bennett/todo.git
 Now create the following file in the repo directory:
 
 ```console
-user@host:~$ cd path/to/repo 
+user@host:~$ cd /path/to/repo 
 user@host:~$ touch dirs_to_search.txt
 ```
 
@@ -44,13 +51,13 @@ For example:\
 Put the following code in your .bashrc (and do not put a trailing slash!):
 
 ```bash
-export TODO_PATH=/home/<user>/path/to/repo
+export TODO_PATH='/home/<user>/path/to/repo'
 ```
 and:
 
 ```bash
 todo () {
-~/todo/./todo.sh "$@"
+/path/to/todo/repo/./todo.sh "$@"
 cat -n ${TODO_PATH}master_todo.md
 }
 ```
@@ -119,6 +126,43 @@ Notice that the original tasks 2 and 3 have been ticked, the uploading task has
 been unticked, and a new task about making a phone call has been inserted into
 the list according to its deadline. Also what were formally tasks 4 and 6 have
 been removed.
+
+## Maintaining todo list across multiple devices
+If you want to be able to make notes on say a laptop, or work on more than one
+machine and want a single master todo list which collects and integrates your
+todo list items, this is possible without too much extra hassle in the
+following way:
+
+First you must create a directory *somewhere outside of the todo repo* and in
+the same location on each machine. This directory and its contents should be
+synched regularly among your devices (e.g. with Google Drive, or by making a
+git repo). Personally I created a hidden directory inside a git repo I'd
+already been using for general work-related stuff and which I synch often. For
+example: 
+
+```bash
+mkdir ~/Documents/my_work_repository/.todo_files
+```
+
+Next, create a 'dirs_to_search.txt' file like before with one or more absolute
+paths (one path per line, no trailing slash) to directories that may contain
+.md files which may contain a todo list item that you wish to track. It's no
+problem to have non-existent directories in this file (and this may well be the
+case if you have different directories on your machines). In my case it would
+be:
+ 
+```console
+user@host:~$ cd ~/Documents/my_work_repository/.todo_files 
+user@host:~$ touch dirs_to_search.txt
+```
+
+Lastly, in your .bashrc, set the TODO_PATH to point to this directory. In my case
+that would be:
+```bash
+export TODO_PATH='~/Documents/my_work_repository/.todo_files'
+```
+That's it! Now every time you run the todo command, the master todo list will
+accumulate and retain todo items found on any machine. Also, you
 
 ## Features to be added
 - Argument to increase/deadline of particular items by specified number of days
