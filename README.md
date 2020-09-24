@@ -20,7 +20,7 @@ user@host:~$ todo
 6 - [ ] Book holiday flights (deadline: 04-07-20)
 ``` 
 
-## Table of contents
+## Table of Contents
 * [Getting Started](#getting-started)
 * [Usage](#usage)
 * [Maintaining todo list across multiple devices](#maintaining-todo-list-across-multiple-devices)
@@ -28,12 +28,16 @@ user@host:~$ todo
 
 ## Getting Started
 
+*Steps marked with \* are slightly different if you're setting up to maintain a
+todo list across multiple devices, so consult [that
+section below](#maintaining-todo-list-across-multiple-devices) as well.*
+
 Clone the repo like so:
 ```bash
 git clone https://github.com/Matt-A-Bennett/todo.git
 ```
 
-Now create the following file in the repo directory:
+\* Now create the following file in the repo directory:
 
 ```console
 user@host:~$ cd /path/to/repo 
@@ -49,7 +53,7 @@ For example:\
 /home/\<user\>/Documents/talks\
 /home/\<user\>/projects
 
-Put the following code in your .bashrc (and do not put a trailing slash!):
+\* Put the following code in your .bashrc (and do not put a trailing slash!):
 
 ```bash
 export TODO_PATH='/home/<user>/path/to/repo'
@@ -134,7 +138,7 @@ machine and want a single master todo list which collects and integrates your
 todo list items, this is possible without too much extra hassle in the
 following way:
 
-First you must create a directory *somewhere outside of the todo repo* and in
+First you must create a directory **somewhere outside of the todo repo** and in
 the same location on each machine. This directory and its contents should be
 synched regularly among your devices (e.g. with Google Drive, or by making a
 git repo). Personally I created a hidden directory inside a git repo I'd
