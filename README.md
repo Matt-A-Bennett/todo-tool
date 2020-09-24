@@ -33,6 +33,7 @@ todo list across multiple devices, so consult [that
 section below](#maintaining-todo-list-across-multiple-devices) as well.*
 
 Clone the repo like so:
+
 ```bash
 git clone https://github.com/Matt-A-Bennett/todo.git
 ```
@@ -111,8 +112,9 @@ For example, assume that todo outputs the following list:
 Let's now assume that we created a new todo list item about making a phone call
 in some .md file in a directory that is listed in dirs_to_search.txt. Let's
 also assume that we have completed tasks 2 and 3, and that we realise that task
-5 has not actually been completed yet, and that our holiday is cancelled. We can tick off tasks 2 and 3, and untick
-task 5, and remove tasks 4 and 6 from the list like so:
+5 has not actually been completed yet, and that our holiday is cancelled. We
+can tick off tasks 2 and 3, and untick task 5, and remove tasks 4 and 6 from
+the list like so:
 
 ```console
 user@host:~$ todo -t3,4 -u5 -d4,6
@@ -134,9 +136,9 @@ the list according to its deadline. Also what were formally tasks 4 and 6 have
 been removed.
 
 ## Maintaining todo list across multiple devices
-If you want to be able to make notes on say a laptop, or work on more than one
-machine and want a single master todo list which collects and integrates your
-todo list items, this is possible without too much extra hassle in the
+If you want to be able to make notes on a laptop, or if you work on more than
+one machine, and want a single master todo list which collects and integrates
+your todo list items, this is possible without too much extra hassle in the
 following way:
 
 First you must create a directory **somewhere outside of the todo repo** and in
@@ -150,25 +152,26 @@ example:
 mkdir ~/Documents/my_work_repository/.todo_files
 ```
 
-Next, create a 'dirs_to_search.txt' file like before with one or more absolute
-paths (one path per line, no trailing slash) to directories that may contain
-.md files which may contain a todo list item that you wish to track. It's no
-problem to have non-existent directories in this file (and this may well be the
-case if you have different directories on your machines). In my case it would
-be:
+Next, create a 'dirs_to_search.txt' file [like before](#getting-started) with
+one or more absolute paths (one path per line, no trailing slash) to
+directories that may contain .md files which may contain a todo list item that
+you wish to track. It's no problem to have non-existent directories in this
+file (and this may well be the case if you have different directories that you
+want to search on your machines). In my case it would be:
  
 ```console
 user@host:~$ cd ~/Documents/my_work_repository/.todo_files 
 user@host:~$ touch dirs_to_search.txt
 ```
 
-Lastly, in your .bashrc, set the TODO_PATH to point to this directory. In my case
-that would be:
+Lastly, in your .bashrc, set the TODO_PATH to point to this directory. In my
+case that would be:
+
 ```bash
 export TODO_PATH='~/Documents/my_work_repository/.todo_files'
 ```
 That's it! Now every time you run the todo command, the master todo list will
-accumulate and retain todo items found on any machine. Also, you
+accumulate and retain todo items found on any machine.
 
 ## Features to be added
 - Argument to increase/deadline of particular items by specified number of days
