@@ -58,7 +58,8 @@ For example:\
 ```bash
 export TODO_PATH='/home/<user>/path/to/repo'
 ```
-and:
+Lastly, add a wrapper function to your .bashrc to call the script and show the
+updated list:
 
 ```bash
 todo () {
