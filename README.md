@@ -35,7 +35,7 @@ section below](#maintaining-todo-list-across-multiple-devices) as well.*
 Clone the repo like so:
 
 ```bash
-git clone https://github.com/Matt-A-Bennett/todo.git
+git clone https://github.com/Matt-A-Bennett/todo-tool.git
 ```
 
 \* Now create the following file in the repo directory:
@@ -64,7 +64,7 @@ updated list:
 
 ```bash
 todo () {
-/path/to/todo/repo/./todo.sh "$@"
+/path/to/repo/./todo.sh "$@"
 cat -n ${TODO_PATH}master_todo.md
 }
 ```
