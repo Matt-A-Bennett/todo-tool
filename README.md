@@ -21,15 +21,10 @@ user@host:~$ todo
 ``` 
 
 # Table of contents
-``` 
-[Getting Started](#getting-started)
-
-[Usage](#usage)
-
-[Maintaining todo list across multiple devices](#maintaining-todo-list-across-multiple-devices)
-
-[Features to be added](#features-to-be-added)
-``` 
+* [Getting Started](#getting-started)
+* [Usage](#usage)
+* [Maintaining todo list across multiple devices](#maintaining-todo-list-across-multiple-devices)
+* [Features to be added](#features-to-be-added)
 
 ## Getting Started
 
