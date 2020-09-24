@@ -10,10 +10,10 @@ the master todo list are ordered according to their associated deadlines.
 Keeping track of your todo list from the command line is then as simple as:
 
 # Table of contents
-[Getting Started](#Getting-Started)
-[Usage](#Usage)
-[Maintaining todo list across multiple devices](#Maintaining-todo-list-across-multiple-devices)
-[Features to be added](#Features-to-be-added)
+[Getting Started](#getting-started)
+[Usage](#usage)
+[Maintaining todo list across multiple devices](#maintaining-todo-list-across-multiple-devices)
+[Features to be added](#features-to-be-added)
 
 ```console
 user@host:~$ todo 
