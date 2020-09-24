@@ -65,7 +65,7 @@ updated list:
 ```bash
 todo () {
 /path/to/repo/./todo.sh "$@"
-cat -n ${TODO_PATH}master_todo.md
+cat -n ${TODO_PATH}/master_todo.md
 }
 ```
 
