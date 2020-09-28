@@ -1,13 +1,13 @@
 # Todo List
-This is a bash script that collects my various todo list items scattered
-around my system in different files and directories (from meetings, talks,
-various projects etc.) into a single master todo list. I can consult and tick
-off completed items in the master todo list and these updates will also be
-propagated back to the individual todo list items in the files from where they
-came. I can also remove items from the master todo list and they will not
-reappear later (the original files are not changed in this case). The items in
-the master todo list are ordered according to their associated deadlines.
-Keeping track of your todo list from the command line is then as simple as:
+This is a bash script that collects various todo list items scattered around
+the file system in different files and directories (from meetings, talks, various
+projects etc.) into a single master todo list. You can tick, untick or postpone
+items in the master todo list and these updates will be propagated back to the
+individual todo list items in the files from where they came. You can also
+remove items from the master todo list and they will not reappear later (the
+original files are not changed in this case). The items in the master todo list
+are ordered according to their associated deadlines.  Keeping track of your
+todo list from the command line is then as simple as:
 
 ```console
 user@host:~$ todo 
@@ -70,9 +70,13 @@ cat -n ${TODO_PATH}/master_todo.md
 ```
 
 ## Usage
-To print your todo list, simply run from the command line like this (you'll
+To print your todo list, simply type 'todo into the terminal (you'll
 have to first restart your terminal or source your .bashrc if you haven't done
 so since modifying your .bashrc file in the steps above):
+
+```console
+user@host:~$ todo 
+```
 
 Any lines in any .md file (in those directories on the list in
 dirs_to_search.txt) that take the form of a 'todo list item' will be copied
@@ -113,12 +117,13 @@ For example, assume that todo outputs the following list:
 Let's now assume that we created a new todo list item about making a phone call
 in some .md file in a directory that is listed in dirs_to_search.txt. Let's
 also assume that we have completed tasks 2 and 3, and that we realise that task
-5 has not actually been completed yet, that we don't need to do task 4 anymore
-and that our holiday is cancelled. We can tick off tasks 2 and 3, and untick
-task 5, and remove tasks 4 and 6 from the list like so:
+5 has not actually been completed yet and will take longer than expected, that
+we don't need to do task 4 anymore and that our holiday is cancelled. We can
+tick off tasks 2 and 3, and untick task 5 and postpone its deadline by one
+week, and remove tasks 4 and 6 from the list like so:
 
 ```console
-user@host:~$ todo -t3,4 -u5 -d4,6
+user@host:~$ todo -t3,4 -u5 -p5 -d4,6
 ```
 
 The output will be:
@@ -128,13 +133,13 @@ The output will be:
      2  - [x] Add some features (deadline: 21-01-20)
      3  - [x] Test new features (deadline: 22-01-20)
      4  - [ ] Make a phone call (deadline: 27-01-20)
-     5  - [ ] Upload latest version (deadline: 29-01-20)
+     5  - [ ] Upload latest version (deadline: 07-02-20)
 ```
 
-Notice that the original tasks 2 and 3 have been ticked, the uploading task has
-been unticked, and a new task about making a phone call has been inserted into
-the list according to its deadline. Also what were formally tasks 4 and 6 have
-been removed.
+Notice that the original tasks 2 and 3 have been ticked, task 5 has been
+unticked and has a later deadline, and a new task about making a phone call has
+been inserted into the list according to its deadline. Also what were formally
+tasks 4 and 6 have been removed.
 
 ## Maintaining todo list across multiple devices
 If you want to be able to make notes on a laptop, or if you work on more than
@@ -176,3 +181,4 @@ accumulate and retain todo items found on any machine.
 
 ## Features to be added
 - Argument to increase/deadline of particular items by specified number of days
+  (currently it defaults to postponing by one week)
