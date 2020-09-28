@@ -18,7 +18,7 @@ while getopts 't:u:d:h' OPTION; do
         d)
             IFS=","
             remove=($OPTARG) ;;
-        h)
+        ?)
             echo -e "\nusage: todo [-h] [-t int [int,int ...]] [-u int [int,int ...]] [-d int [int,int ...]]\n"
 
             echo -e "Function description: Collects various todo list items scattered around different files and directories into a single master todo list.\n"
@@ -28,6 +28,14 @@ while getopts 't:u:d:h' OPTION; do
             echo -e "-t int [int,int ...]  which items to tick (comma,separated)"
             echo -e "-u int [int,int ...]  which items to untick (comma,separated)"
             echo -e "-d int [int,int ...]  which items to delete (comma,separated)\n"
+
+            echo -e "usage examples:\n"
+            echo -e "1) tick task 2\n"
+            echo -e "   todo -t2\n"
+            echo -e "2) untick task 3 and delete task 4\n"
+            echo -e "   todo -u3 -d4\n"
+            echo -e "3) tick tasks 3, 4 and 5 and delete tasks 1 and 2\n"
+            echo -e "   todo -u3,4,5 -d1,2\n"
 
             # clean up and exit
             rm tick_propagate.md untick_propagate.md
