@@ -76,7 +76,8 @@ so since modifying your .bashrc file in the steps above):
 
 Any lines in any .md file (in those directories on the list in
 dirs_to_search.txt) that take the form of a 'todo list item' will be copied
-into master_todo.md. A 'todo list item' takes the following form:
+into master_todo.md. A 'todo list item' takes the following form (note the
+space between the [ ]):
 
 ```console
 - [ ] <task description here> (deadline: <dd-mm-yy>)
