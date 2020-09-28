@@ -30,7 +30,7 @@ while getopts 't:u:d:p:h' OPTION; do
             echo -e "-h, show this help message and exit"
             echo -e "-t int [int,int ...]  which items to tick (comma,separated)"
             echo -e "-u int [int,int ...]  which items to untick (comma,separated)"
-            echo -e "-d int [int,int ...]  which items to delete (comma,separated)\n"
+            echo -e "-d int [int,int ...]  which items to delete (comma,separated)"
             echo -e "-p int [int,int ...]  which items to postpone (comma,separated)\n"
 
             echo -e "usage examples:\n"

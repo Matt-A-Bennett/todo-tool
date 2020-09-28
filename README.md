@@ -70,7 +70,7 @@ cat -n ${TODO_PATH}/master_todo.md
 ```
 
 ## Usage
-To print your todo list, simply type 'todo into the terminal (you'll
+To print your todo list, simply type 'todo' into the terminal (you'll
 have to first restart your terminal or source your .bashrc if you haven't done
 so since modifying your .bashrc file in the steps above):
 
@@ -98,9 +98,28 @@ different files and directories into a single master todo list.
 
 optional arguments:
   -h, show this help message and exit
-  -t int [int,int...]  which items to tick (comma,separated)
-  -u int [int,int...]  which items to untick (comma,separated)
-  -d int [int,int...]  which items to delete (comma,separated)
+  -t int [int,int ...]  which items to tick (comma,separated)
+  -u int [int,int ...]  which items to untick (comma,separated)
+  -d int [int,int ...]  which items to delete (comma,separated)
+  -p int [int,int ...]  which items to postpone (comma,separated)
+
+usage examples:
+
+1) tick task 2
+
+   todo -t2
+
+2) untick task 3 and delete task 4
+
+   todo -u3 -d4
+
+3) postpone tasks 4 and 6 (by one week)
+
+   todo -p4,6
+
+4) tick tasks 3, 4 and 5 and delete tasks 1 and 2
+
+   todo -u3,4,5 -d1,2
 ```
   
 For example, assume that todo outputs the following list:
