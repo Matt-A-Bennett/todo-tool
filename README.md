@@ -91,7 +91,7 @@ To modify existing items in your todo list, you have the following options:
 
 ```console
 usage: todo [-h] [-t int [int,int ...]] [-u int [int,int ...]] 
-            [-d int [int,int ...]]
+            [-p int [int,int ...]] [-d int [int,int ...]]
 
 Function description: Collects various todo list items scattered around
 different files and directories into a single master todo list.
