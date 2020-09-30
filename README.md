@@ -161,10 +161,9 @@ been inserted into the list according to its deadline. Also what were formally
 tasks 4 and 6 have been removed.
 
 ## Maintaining todo list across multiple devices
-If you want to be able to make notes on a laptop, or if you work on more than
-one machine, and want a single master todo list which collects and integrates
-your todo list items across devices, this is possible without too much extra
-hassle in the following way:
+If you want to be able to make notes on a second machine and want a single
+master todo list which collects and integrates your todo list items across
+devices, this is possible without too much extra hassle in the following way:
 
 First you must create a directory **somewhere outside of the todo repo** and in
 the same location on each machine. This directory and its contents should be

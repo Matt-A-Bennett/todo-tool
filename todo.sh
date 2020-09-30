@@ -1,10 +1,31 @@
 #!/bin/bash
 
+# Outline of how the script works:
+# gather tasks that will be (un)ticked and convert to a regex to find the items
+# in the original files later
+#
+# tick/untick master tasks
+#
+# apply regex to locate updated tasks in original files and modify
+#
+# grep all the orginal files and store in additions.md 
+#
+# remove any tasks from master_todo.md and store in removed_tasks.md as we
+# delete tasks, the index of all subsequent tasks drops by one, so keep track
+# of how many have been removed and adjust idices accordingly
+#
+# add on the tracked tasks and get rid of duplicates 
+#
+# sort by date
+
+# clean up
+
 # set path
 path=$TODO_PATH
+script_path=$(dirname $(realpath $0))
 
 # set up dummy files 
-touch tick_propagate.md untick_propagate.md postpone_propagate.md ${path}/removed_tasks.md
+touch ${script_path}/tick_propagate.md ${script_path}/untick_propagate.md ${script_path}/postpone_propagate.md ${script_path}/additions.md ${path}/removed_tasks.md ${script_path}/master_todo_tmp.md ${script_path}/tmp
 
 # parse args in
 while getopts 't:u:d:p:h' OPTION; do
@@ -44,7 +65,7 @@ while getopts 't:u:d:p:h' OPTION; do
             echo -e "   todo -u3,4,5 -d1,2\n"
 
             # clean up and exit
-            rm tick_propagate.md untick_propagate.md
+            rm ${script_path}/tick_propagate.md ${script_path}/untick_propagate.md ${script_path}/postpone_propagate.md ${script_path}/additions.md ${script_path}/tmp
             exit 1 ;;
     esac
 done
@@ -52,36 +73,17 @@ done
 # gather tasks that will be (un)ticked and convert to a regex to find the items
 # in the original files
 for i in "${tick[@]}"; do
-    sed -n "${i}"p ${path}/master_todo.md >> tick_propagate.md
-    sed -i "s/- \[/- \\\[/" tick_propagate.md
+    sed -n "${i}"p ${path}/master_todo.md >> ${script_path}/tick_propagate.md
+    sed -i "s/- \[/- \\\[/" ${script_path}/tick_propagate.md
 done
 for i in "${untick[@]}"; do
-    sed -n "${i}"p ${path}/master_todo.md >> untick_propagate.md
-    sed -i "s/- \[/- \\\[/" untick_propagate.md
+    sed -n "${i}"p ${path}/master_todo.md >> ${script_path}/untick_propagate.md
+    sed -i "s/- \[/- \\\[/" ${script_path}/untick_propagate.md
 done
 for i in "${postpone[@]}"; do
-    sed -n "${i}"p ${path}/master_todo.md >> postpone_propagate.md
-    sed -i "s/- \[/- \\\[/" postpone_propagate.md
+    sed -n "${i}"p ${path}/master_todo.md >> ${script_path}/postpone_propagate.md
+    sed -i "s/- \[/- \\\[/" ${script_path}/postpone_propagate.md
 done
-
-# apply regex and (un)tick the box
-while read dir; do
-    for file in $dir/*.md; do
-        while read -r line; do 
-            sed -i "/${line}/ s/- \[ ]/- \[x]/" $file
-        done <tick_propagate.md
-        while read -r line; do 
-            sed -i "/${line}/ s/- \[x]/- \[ ]/" $file
-        done <untick_propagate.md
-        while read -r line; do 
-            old_date=$(echo $line | grep -oP "\d{2}-\d{2}-\d{2}")
-            old_date=$(echo $old_date | awk -F - '{print $2"/"$1"/"$3}')
-            new_date=$(date +%m/%d/%y -d "$old_date + 7 day")
-            new_date=$(echo $new_date | awk -F / '{print $2"-"$1"-"$3}')
-            sed -i "/${line}/ s/[0-9][0-9]-[0-9][0-9]-[0-9][0-9]/${new_date}/" $file
-        done <postpone_propagate.md
-    done
-done <${path}/dirs_to_search.txt
 
 # tick/untick master tasks
 for i in "${tick[@]}"; do
@@ -99,33 +101,53 @@ for i in "${postpone[@]}"; do
     sed -i "${i} s/[0-9][0-9]-[0-9][0-9]-[0-9][0-9]/${new_date}/" ${path}/master_todo.md
 done
 
-# remove any tasks from master_todo.md and store in removed_tasks.md
-for i in "${remove[@]}"; do
-    sed -i "${i} { w tmp
-    d }" ${path}/master_todo.md
-    cat tmp >> ${path}/removed_tasks.md
-done
+# apply regex to locate updated tasks in original files and modify
+while read dir; do
+    for file in $dir/*.md; do
+        while read -r line; do 
+            sed -i "/${line}/ s/- \[ ]/- \[x]/" $file
+        done < ${script_path}/tick_propagate.md
+        while read -r line; do 
+            sed -i "/${line}/ s/- \[x]/- \[ ]/" $file
+        done < ${script_path}/untick_propagate.md
+        while read -r line; do 
+            old_date=$(echo $line | grep -oP "\d{2}-\d{2}-\d{2}")
+            old_date=$(echo $old_date | awk -F - '{print $2"/"$1"/"$3}')
+            new_date=$(date +%m/%d/%y -d "$old_date + 7 day")
+            new_date=$(echo $new_date | awk -F / '{print $2"-"$1"-"$3}')
+            sed -i "/${line}/ s/[0-9][0-9]-[0-9][0-9]-[0-9][0-9]/${new_date}/" $file
+        done < ${script_path}/postpone_propagate.md
+    done
+done <${path}/dirs_to_search.txt
 
-# grep all the files and append to master_todo.md (unless it's on the removed list)
+# grep all the orginal files and store in additions.md 
 while read dir; do
     for file in $dir/*.md; do
         grep "(deadline:" "${file}" | while read -r task; do
-            echo $task > tmp
-            task_pattern=$(sed "s/- \[/- \\\[/" tmp)
-            if ! grep -qe "$task_pattern" ${path}/removed_tasks.md
-            then
-                echo $task >> ${path}/master_todo.md
-            fi
+        echo $task >> ${script_path}/additions.md
         done
     done
 done <${path}/dirs_to_search.txt
 
-# sort by task description then delete duplicate adjecent lines
-sort -k3 ${path}/master_todo.md > sorted.md
-uniq -s5 sorted.md filtered.md
+# remove any tasks from master_todo.md and store in removed_tasks.md
+# as we delete tasks, the index of all subsequent tasks drops by one, so keep
+# track of how many have been removed and adjust idices accordingly
+delete_count=0
+for i in "${remove[@]}"; do
+    sed -i "$((${i}-${delete_count})) { w tmp
+    d }" ${path}/master_todo.md
+    cat tmp >> ${path}/removed_tasks.md
+    delete_count=$((${delete_count}+1))
+done
+
+# add on the tracked tasks and get rid of duplicates 
+cat ${path}/master_todo.md ${script_path}/additions.md | sort -u | uniq > ${script_path}/master_update.md
+sort -o ${path}/removed_tasks.md ${path}/removed_tasks.md
+
+comm -23 ${script_path}/master_update.md ${path}/removed_tasks.md > ${script_path}/master_todo_tmp.md
 
 # sort by date
-cat filtered.md | sort -t: -k2 | sort -t- -k3,3 -s > ${path}/master_todo.md
+cat ${script_path}/master_todo_tmp.md | sort -t: -k2 | sort -t- -k3,3 -s > ${path}/master_todo.md
 
 # clean up
-rm tick_propagate.md untick_propagate.md postpone_propagate.md sorted.md filtered.md tmp 
+rm ${script_path}/tick_propagate.md ${script_path}/untick_propagate.md ${script_path}/postpone_propagate.md ${script_path}/additions.md ${script_path}/master_update.md ${script_path}/master_todo_tmp.md ${script_path}/tmp 
