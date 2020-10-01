@@ -134,9 +134,9 @@ done <${path}/dirs_to_search.txt
 # track of how many have been removed and adjust idices accordingly
 delete_count=0
 for i in "${remove[@]}"; do
-    sed -i "$((${i}-${delete_count})) { w tmp
+    sed -i "$((${i}-${delete_count})) { w ${script_path}tmp
     d }" ${path}/master_todo.md
-    cat tmp >> ${path}/removed_tasks.md
+    cat ${script_path}tmp >> ${path}/removed_tasks.md
     delete_count=$((${delete_count}+1))
 done
 
